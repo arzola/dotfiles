@@ -1,0 +1,7 @@
+# chezmoi externals — auto-cloned on `chezmoi apply`, kept fresh.
+# fzf-tab is not on Homebrew, so we vendor it here (no plugin framework).
+
+[".config/zsh/plugins/fzf-tab"]
+    type = "git-repo"
+    url = "https://github.com/Aloxaf/fzf-tab.git"
+    refreshPeriod = "168h"

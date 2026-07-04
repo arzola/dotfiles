@@ -1,0 +1,83 @@
+# ~/.zshrc — managed by chezmoi. Lean, ordered, framework-free.
+# No oh-my-zsh, no Fig/Kiro/Amazon-Q instrumentation (fought Ghostty).
+# PHP = Yerd · Node = nvm · prompt = starship · completion = carapace/fzf-tab.
+
+# ── PATH: personal bin ──
+export PATH="$HOME/bin:$PATH"
+
+# ── Java / Android (Android Studio) ──
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home"
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export PATH="$JAVA_HOME/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$PATH"
+
+# ── Homebrew tool paths ──
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"       # ruby
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"      # psql / libpq
+export PATH="/opt/homebrew/opt/crowdin@4/bin:$PATH"  # crowdin
+
+# ── PHP: Yerd (replaces Herd) ──
+# Yerd prints its shell line during `yerd` setup — it lands in ~/.yerd.
+# This sources it if present, so the file is safe before Yerd is installed.
+[ -f "$HOME/.yerd/env" ] && source "$HOME/.yerd/env"
+
+# ── Node: nvm (Yerd reuses this node/npm) ──
+export NVM_DIR="$HOME/.nvm"
+if [ -s "$NVM_DIR/nvm.sh" ]; then
+  source "$NVM_DIR/nvm.sh"                    # nvm install-script layout
+elif [ -s "/opt/homebrew/opt/nvm/nvm.sh" ]; then
+  source "/opt/homebrew/opt/nvm/nvm.sh"       # Homebrew layout
+fi
+[ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"
+
+# ── pyenv ──
+if command -v pyenv >/dev/null; then
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+fi
+
+# ── Lando ──
+export PATH="$HOME/.lando/bin:$PATH"
+
+# ── OpenCode ──
+export PATH="$HOME/.opencode/bin:$PATH"
+
+# ─────────────────────────────────────────────────────────────────────────
+# Completion + prompt stack — ORDER MATTERS (syntax-highlighting is LAST).
+# ─────────────────────────────────────────────────────────────────────────
+autoload -Uz compinit && compinit
+
+# carapace — rich per-command flag/argument completions
+command -v carapace >/dev/null && source <(carapace _carapace zsh)
+
+# fzf + fzf-tab — fuzzy finder and fuzzy Tab menus (fzf-tab cloned by chezmoi)
+command -v fzf >/dev/null && source <(fzf --zsh)
+[ -f "$HOME/.config/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh" ] && \
+  source "$HOME/.config/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh"
+
+# zsh-autosuggestions — inline ghost text from history
+[ -f "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && \
+  source "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+
+# atuin — supercharged Ctrl-R history
+command -v atuin >/dev/null && eval "$(atuin init zsh)"
+
+# zoxide + starship
+command -v zoxide  >/dev/null && eval "$(zoxide init zsh)"
+command -v starship >/dev/null && eval "$(starship init zsh)"
+
+# zsh-syntax-highlighting — MUST be sourced last
+[ -f "/opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] && \
+  source "/opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+
+# ── Aliases ──
+alias ls='eza --icons'
+alias cat='bat'
+alias grep='rg'
+alias find='fd'
+alias help='tldr'
+alias opencodex='MERIDIAN_DEFAULT_OPUS_MODEL=claude-fable-5 ANTHROPIC_API_KEY=x ANTHROPIC_BASE_URL=http://127.0.0.1:3456 opencode'
+
+# ── Meridian proxy (global): claude & opencode route through 127.0.0.1:3456 ──
+# Requires `npm i -g @rynfar/meridian` running. Without it, both tools fail.
+export ANTHROPIC_API_KEY=x
+export ANTHROPIC_BASE_URL=http://127.0.0.1:3456

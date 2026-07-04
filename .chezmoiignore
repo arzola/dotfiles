@@ -1,0 +1,27 @@
+# Files chezmoi must NOT manage/publish. Patterns are target paths under ~.
+# These are secrets or machine-state — restored from the vault or re-auth,
+# never committed to the public arzola/dotfiles repo.
+
+# Plaintext credentials
+.netrc
+
+# GitHub CLI oauth token (re-auth with `gh auth login`)
+.config/gh/hosts.yml
+
+# Claude Code: session state, history, caches, credentials
+.claude/history.jsonl
+.claude/sessions
+.claude/session-env
+.claude/stats-cache.json
+.claude/.last-update-result.json
+.claude/*.muxy-backup
+.claude/.credentials.json
+
+# OpenCode: data dir (sessions/auth) is copied directly, not repo'd
+.local/share/opencode
+
+# Bloat — never track dependency trees
+**/node_modules
+
+# SSH config exposes real infra — encrypt or restore from vault instead
+.ssh/config
