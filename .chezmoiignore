@@ -25,3 +25,6 @@
 
 # SSH config exposes real infra — encrypt or restore from vault instead
 .ssh/config
+
+# Repo docs — not deployed to home
+README.md
