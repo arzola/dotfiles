@@ -31,7 +31,7 @@
       "type": "local",
       "command": ["npx", "-y", "@z_ai/mcp-server"],
       "environment": {
-        "Z_AI_API_KEY": "{{ onepasswordRead "op://Private/Z.ai API/credential" }}",
+        "Z_AI_API_KEY": "{{ onepasswordRead "op://Employee/Z.ai API/credential" }}",
         "Z_AI_MODE": "ZAI"
       }
     },
@@ -41,7 +41,7 @@
       "url": "https://mcp.figma.com/mcp",
       "oauth": {
         "clientId": "40LdZDPJAt4UoJ4tlfn1pB",
-        "clientSecret": "{{ onepasswordRead "op://Private/Figma MCP/clientSecret" }}"
+        "clientSecret": "{{ onepasswordRead "op://Employee/Figma MCP/clientSecret" }}"
       }
     }
   }
