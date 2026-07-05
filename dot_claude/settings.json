@@ -1,0 +1,69 @@
+{
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Applications/Muxy.app/Contents/Resources/Muxy_Muxy.bundle/muxy-claude-hook.sh' notification # muxy-notification-hook",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Applications/Muxy.app/Contents/Resources/Muxy_Muxy.bundle/muxy-claude-hook.sh' pre-tool-use # muxy-notification-hook",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Applications/Muxy.app/Contents/Resources/Muxy_Muxy.bundle/muxy-claude-hook.sh' stop # muxy-notification-hook",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Applications/Muxy.app/Contents/Resources/Muxy_Muxy.bundle/muxy-claude-hook.sh' user-prompt-submit # muxy-notification-hook",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "superpowers-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "obra/superpowers-marketplace"
+      },
+      "autoUpdate": true
+    }
+  },
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "high",
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "dark",
+  "model": "claude-fable-5[1m]"
+}
